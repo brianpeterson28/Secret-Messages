@@ -1,7 +1,14 @@
-import os
+from affine import Affine
+from atbash import Atbash
 from caesar import Caesar
+from hill import Hill
+import os
 
-AVAILABLE_CIPHERS = ["Caesar", "Affine", "Atbash", "Key Word"]
+AVAILABLE_CIPHERS = { "Caesar" : Caesar, 
+	   				  "Affine" : Affine, 
+					  "Atbash" : Atbash, 
+					  "Hill" : Hill
+					}
 
 def main():
 	show_welcome()
@@ -22,18 +29,18 @@ def show_welcome():
 	print("\nThis is the Secret Messages Project for the Treehouse" 
 		+ " Techdegree.")
 
-def show_available_ciphers(list_of_ciphers):
+def show_available_ciphers(available_ciphers):
 	print("The following ciphers are available:\n")
 	num = 1
-	for item in list_of_ciphers:
-		print(str(num) + ". " + item)
+	for name in available_ciphers.keys():
+		print(str(num) + ". " + name)
 		num += 1
 	print("\n")
 
 def get_cipher_name():
-	cipher = input("Please enter the name of the cipher you would " +  
+	cipher_name = input("Please enter the name of the cipher you would " +  
 		           "like to use. > ")
-	return cipher
+	return cipher_name
 
 def get_message():
 	message = input("Please enter the message. > ")
@@ -50,17 +57,9 @@ def clear_screen():
 	os.system('cls' if os.name == 'nt' else 'clear') 
 
 def encrypt_message(cipher_name, message):
-	cipher = create_cipher(cipher_name)
+	cipher = AVAILABLE_CIPHERS[cipher_name]()
 	encrypted_message = cipher.encrypt(message)
 	return encrypted_message
-
-def create_cipher(cipher_name):
-	cipher = None 
-	if cipher_name == "Caesar":
-		cipher = Caesar()
-		return cipher
-	else:
-		pass
 
 if __name__ == '__main__':
 	main()
