@@ -35,5 +35,7 @@ class Caesar(Cipher):
                 output.append(self.BACKWARD[index-self.offset])
         return ''.join(output)
 
-
-
+if __name__ == '__main__':
+    item = Caesar()
+    print(str(item.FORWARD))
+    print(str(item.BACKWARD))
