@@ -7,6 +7,7 @@ class Affine(Cipher):
 		self.alphabet = string.ascii_uppercase
 		self.alpha_2_num = {}
 		self.num_2_alpha = {}
+		self.mod = len(self.alphabet)
 		index = 0
 		for char in self.alphabet:
 			self.alpha_2_num[char] = index
@@ -17,6 +18,7 @@ class Affine(Cipher):
 		text = text.upper()
 		affine_step_one = []
 		affine_step_two = []
+		affine_step_three = []
 
 		for item in text:
 			for char in self.alpha_2_num.keys():
@@ -26,7 +28,10 @@ class Affine(Cipher):
 		for item in affine_step_one:
 			affine_step_two.append((item * 5) + 8)	
 
-		return affine_step_two
+		for item in affine_step_two:
+			affine_step_three.append(item % self.mod)
+
+		return affine_step_three 
 
 	def decrypt(self, text):
 		pass
