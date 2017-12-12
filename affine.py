@@ -19,6 +19,7 @@ class Affine(Cipher):
 		affine_step_one = []
 		affine_step_two = []
 		affine_step_three = []
+		encrypted_message = ""
 
 		for item in text:
 			for char in self.alpha_2_num.keys():
@@ -31,7 +32,12 @@ class Affine(Cipher):
 		for item in affine_step_two:
 			affine_step_three.append(item % self.mod)
 
-		return affine_step_three 
+		for item in affine_step_three:
+			for num in self.num_2_alpha.keys():
+				if item == num:
+					encrypted_message += self.num_2_alpha[item]
+
+		return encrypted_message 
 
 	def decrypt(self, text):
 		pass
@@ -42,6 +48,5 @@ if __name__ == '__main__':
 	print("\nThe Affine class's alphabet is: " + affine.alphabet + "\n")
 	print("The letter to number encoding is: " + str(affine.alpha_2_num)+"\n")
 	print("The number to letter encoding is: " + str(affine.num_2_alpha)+"\n")
-	print(affine.encrypt("affinecipher"))
-
-
+	print("affinecipher = " + affine.encrypt("affinecipher") + "\n") 
+								  #expected = IHHWVCSWFRCP
