@@ -16,11 +16,17 @@ class Affine(Cipher):
 	def encrypt(self, text):
 		text = text.upper()
 		affine_step_one = []
+		affine_step_two = []
+
 		for item in text:
 			for char in self.alpha_2_num.keys():
 				if  item == char:
 					affine_step_one.append(self.alpha_2_num[char])
-		return affine_step_one
+
+		for item in affine_step_one:
+			affine_step_two.append((item * 5) + 8)	
+
+		return affine_step_two
 
 	def decrypt(self, text):
 		pass
@@ -31,5 +37,6 @@ if __name__ == '__main__':
 	print("\nThe Affine class's alphabet is: " + affine.alphabet + "\n")
 	print("The letter to number encoding is: " + str(affine.alpha_2_num)+"\n")
 	print("The number to letter encoding is: " + str(affine.num_2_alpha)+"\n")
-	print(affine.encrypt("affinechipher"))
+	print(affine.encrypt("affinecipher"))
+
 
