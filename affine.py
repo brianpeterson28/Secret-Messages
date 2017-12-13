@@ -23,19 +23,36 @@ class Affine(Cipher):
 
 		for item in text:
 			for char in self.alpha_2_num.keys():
-				if  item == char:
-					affine_step_one.append(self.alpha_2_num[char])
+				if item == char:
+						affine_step_one.append(self.alpha_2_num[char])
+				else:
+					try:
+						self.alpha_2_num[item]
+					except KeyError:
+						affine_step_one.append(item)
+						break
+
+		#print(affine_step_one)
 
 		for item in affine_step_one:
-			affine_step_two.append((item * 5) + 8)	
+			if isinstance(item, int):
+				affine_step_two.append((item * 5) + 8)
+			else:
+				affine_step_two.append(item)
+		print(affine_step_two)
 
 		for item in affine_step_two:
-			affine_step_three.append(item % self.mod)
+			if isinstance(item, int):
+				affine_step_three.append(item % self.mod)
+			else:
+				affine_step_three.append(item)
+		#print(affine_step_three)
 
 		for item in affine_step_three:
-			for num in self.num_2_alpha.keys():
-				if item == num:
-					encrypted_message += self.num_2_alpha[item]
+			if isinstance(item, int):
+				encrypted_message +=  self.num_2_alpha[item]
+			else:
+				encrypted_message += item
 
 		return encrypted_message 
 

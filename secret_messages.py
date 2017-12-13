@@ -3,6 +3,7 @@ from atbash import Atbash
 from caesar import Caesar
 from hill import Hill
 import os
+import string
 
 AVAILABLE_CIPHERS = { "Caesar" : Caesar, 
 	   				  "Affine" : Affine, 
@@ -15,7 +16,7 @@ def main():
 	show_available_ciphers(AVAILABLE_CIPHERS)
 	cipher_name = get_cipher_name()
 	message = get_message()
-	encrypted_message = encrypt_message(cipher_name, message)
+	encrypted_message = encrypt_message(cipher_name.title(), message)
 	print("The user selected the follwoing cipher: " + cipher_name)
 	print("The user entered the follwoing message: " + "\"" + message + "\"")
 	print("The encrypted message is: " + encrypted_message)
