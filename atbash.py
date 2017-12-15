@@ -1,4 +1,61 @@
 from ciphers import Cipher
+import string
 
 class Atbash(Cipher):
-	pass
+
+
+	def __init__(self):
+		self.alphabet = string.ascii_uppercase
+		self.forward_list = self.create_forward_alpha_list(self.alphabet)
+		self.backward_list = self.create_backward_alpha_list(self.alphabet)
+		self.encrypt_key = dict(zip(self.forward_list, self.backward_list))
+		self.decrypt_key = dict(zip(self.forward_list, self.backward_list))
+		
+
+	def encrypt(self, text):
+		text = text.upper()
+		encrypted_message = ""
+		for item in text:
+			try:
+				encrypted_message += self.encrypt_key[item]
+			except KeyError:
+				encrypted_message += item
+		return encrypted_message
+
+
+	def decrypt(self, text):
+		text = text.upper()
+		decrypted_message = ""
+		for item in text:
+			try:
+				decrypted_message += self.decrypt_key[item]
+			except KeyError:
+				decrypted_message += item
+		return decrypted_message
+
+	def create_backward_alpha_list(self, alphabet):
+		backward_list = []
+		for item in alphabet[::-1]:
+			backward_list.append(item)
+		return backward_list
+
+	def create_forward_alpha_list(self, alphabet):
+		forward_list = []
+		for item in alphabet:
+			forward_list.append(item)
+		return forward_list
+
+if __name__ == '__main__':
+	atbash = Atbash()
+	#print(atbash.forward_list)
+	#print(atbash.backward_list)
+	#print(atbash.ecrypt_key)
+	#print(atbash.decrypt_key)
+	message = "ab  cd!"
+	print(atbash.encrypt(message))
+	secret = atbash.encrypt(message)
+	print(atbash.decrypt(secret))
+
+
+
+

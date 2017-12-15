@@ -1,8 +1,6 @@
 from ciphers import Cipher
 import string
 
-
-
 class Caesar(Cipher):
     FORWARD = string.ascii_uppercase * 3
 

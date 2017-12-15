@@ -1,14 +1,14 @@
 from affine import Affine
 from atbash import Atbash
 from caesar import Caesar
-from hill import Hill
+from Keyword import Keyword
 import os
 import string
 
 AVAILABLE_CIPHERS = { "Caesar" : Caesar, 
 	   				  "Affine" : Affine, 
 					  "Atbash" : Atbash, 
-					  "Hill" : Hill
+					  "Keyword" : Keyword
 					}
 
 def main():
@@ -17,9 +17,11 @@ def main():
 	cipher_name = get_cipher_name()
 	message = get_message()
 	encrypted_message = encrypt_message(cipher_name.title(), message)
+	decrypted_message = decrypt_message(cipher_name.title(), encrypted_message)
 	print("The user selected the follwoing cipher: " + cipher_name)
 	print("The user entered the follwoing message: " + "\"" + message + "\"")
 	print("The encrypted message is: " + encrypted_message)
+	print("The decrypted_message is: " + decrypted_message)
 	if end_program():
 		pass
 	else:
@@ -61,6 +63,11 @@ def encrypt_message(cipher_name, message):
 	cipher = AVAILABLE_CIPHERS[cipher_name]()
 	encrypted_message = cipher.encrypt(message)
 	return encrypted_message
+
+def decrypt_message(cipher_name, message):
+	cipher = AVAILABLE_CIPHERS[cipher_name]()
+	decrypted_message = cipher.decrypt(message)
+	return decrypted_message
 
 if __name__ == '__main__':
 	main()
