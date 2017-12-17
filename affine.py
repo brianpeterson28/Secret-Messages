@@ -96,8 +96,7 @@ class Affine(Cipher):
 				decrypted_message += item
 
 		return decrypted_message
-
-
+		
 if __name__ == '__main__':
 	affine = Affine()
 	print("\nThe Affine class's alphabet is: " + affine.alphabet + "\n")

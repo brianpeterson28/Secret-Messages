@@ -3,7 +3,6 @@ import string
 
 class Atbash(Cipher):
 
-
 	def __init__(self):
 		self.alphabet = string.ascii_uppercase
 		self.forward_list = self.create_forward_alpha_list(self.alphabet)
@@ -55,7 +54,3 @@ if __name__ == '__main__':
 	print(atbash.encrypt(message))
 	secret = atbash.encrypt(message)
 	print(atbash.decrypt(secret))
-
-
-
-
