@@ -1,3 +1,9 @@
+"""Treehouse Tech Degree - Project 2 - Secret Messages
+
+This is an interactive program that allows the user to encrypt and decrypt 
+messages using various cipher methods. 
+"""
+
 from affine import Affine
 from atbash import Atbash
 from caesar import Caesar
@@ -12,6 +18,16 @@ AVAILABLE_CIPHERS = { "Caesar" : Caesar,
 					}
 
 def main():
+	"""Main Program Logic
+
+	1. Display welcome message
+	2. Determine which cipher to use
+	3. Determine which action to perform (i.e. encrypt or decrypt)
+	4. If Keyword cipher chosen then do special calculations
+	5. If any other cipher was selected then perform general calculations
+	6. Determine whether to terminate program or repeat it.
+	"""
+
 	show_welcome()
 	show_available_ciphers(AVAILABLE_CIPHERS)
 	cipher_name = get_cipher_name()
@@ -46,11 +62,17 @@ def main():
 		clear_screen()
 		main() 
 
+
 def show_welcome():
+	"""Prints the welcome message to the command line."""
+
 	print("\nThis is the Secret Messages Project for the Treehouse" 
 		+ " Techdegree.")
 
+
 def show_available_ciphers(available_ciphers):
+	"""Prints the available ciphers the command line."""
+
 	print("The following ciphers are available:\n")
 	num = 1
 	for name in available_ciphers.keys():
@@ -58,7 +80,14 @@ def show_available_ciphers(available_ciphers):
 		num += 1
 	print("\n")
 
+
 def get_cipher_name():
+	"""Gets the cipher name from the user. 
+
+	It tests to make sure the user has entered a valid cipher name and then 
+	it returns a valid string cipher name. 
+	"""
+
 	cipher_name = input("Please enter the name of the cipher you would " +  
 						"like to use. > ")
 	cipher_name = cipher_name.title()
@@ -69,10 +98,18 @@ def get_cipher_name():
 		cipher_name = get_cipher_name()
 	return cipher_name
 
+
 def get_action():
+	"""Gets the desired action from the user.
+
+	It tests to make sure the user has entered a valid action and the it then 
+	returns a valid string action. The only valid actions are encrypt and 
+	decrypt. 
+	"""
+
 	action = input("To encrypt type \"encrypt\". To decrypt type \"decrypt\"." 
-					+ " > ")
-	action = action.lower()
+					+ " > ").lower()
+	#action = action.lower()
 	if action == "encrypt":
 		return action
 	elif action == "decrypt":
@@ -80,21 +117,38 @@ def get_action():
 	else:
 		print("Action Not Recognized. Please check your spelling.")
 		action = get_action()
+		return action
+
 
 def get_message():
+	"""Gets the message to be encrypted or decrypted from the user.
+
+	It takes input from the use and returns a string message.
+	"""
 	message = input("Please enter the message. > ")
 	return message
 
+
 def get_keyword():
+	"""Gets the keyword if Keyword Cipher selected by user.
+
+	It tests to make sure the keyword meets certain requirements. If the user's
+	input does not satisfy the criteria then it explains the problem and 
+	prompts the user to re-enter a keyword. 
+
+	Once all the relevant criteria are met, it returns the keyword to be used
+	by the Keyword Cipher object. 
+	"""
+
 	keyword = input("Please enter the keyword. > ")
 	keyword = keyword.upper()
 
-	#Test 1
+	#Does not allow keywords longer than 10 letters. 
 	if len(keyword) > 10:
 		print("Length Error. A keyword cannot be longer than 10 characters.")
 		keyword = get_keyword()
 
-	#Test 2
+	#Does not allow keywords with non-unique letters. 
 	test_unique = ""
 	test_keyword = keyword
 	for item in test_keyword:
@@ -107,7 +161,7 @@ def get_keyword():
 		else:
 			test_unique = item
 
-	#Test 3
+	#Does not allow keywords with spaces or punctuation. 
 	alphabet = string.ascii_uppercase
 	alphabet_dict = {}
 	for char in alphabet:
@@ -124,17 +178,37 @@ def get_keyword():
 
 	return keyword
 
+
 def encrypt_message(cipher_name, message):
+	"""Encrypts the message based upon the selected cipher. 
+
+	Dynamically encrypts the message based on the user's input. It returns the
+	encrypted message as a string. 
+	"""
+
 	cipher = AVAILABLE_CIPHERS[cipher_name]()
 	encrypted_message = cipher.encrypt(message)
 	return encrypted_message
 
+
 def decrypt_message(cipher_name, message):
+	"""Decrypts the message based upon the selected cipher. 
+
+	Dynamically decrypts the message based on the user's input. It returns the
+	decrypted message as a string. 
+	"""
+
 	cipher = AVAILABLE_CIPHERS[cipher_name]()
 	decrypted_message = cipher.decrypt(message)
 	return decrypted_message
 
+
 def end_program():
+	"""Terminates the program. 
+
+	Dynamically termintaes the program based on the user's input. 
+	"""
+
 	end = input("Would you like to encrypt or decrypt another message, " + 
 				"Yes or No? > ")
 	if end.title() == "Yes":
@@ -144,9 +218,13 @@ def end_program():
 	else:
 		print("Quit Error. Please type \"Yes\" or \"No\".")
 		end = end_program()
+
 		
 def clear_screen():
+	"""Clears the screen of all prior input and output."""
+
 	os.system('cls' if os.name == 'nt' else 'clear') 
+
 
 if __name__ == '__main__':
 	main()
