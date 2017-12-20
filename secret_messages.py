@@ -54,7 +54,7 @@ def main():
         else:
             message = get_message()
             decrypted_message = decrypt_message(cipher_name.title(), message)
-            print("The decrypted_message is: " + decrypted_message)
+            print("The decrypted message is: " + decrypted_message)
 
     if end_program():
         pass

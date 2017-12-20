@@ -5,9 +5,10 @@ class Caesar(Cipher):
     FORWARD = string.ascii_uppercase * 3
 
     def __init__(self, offset=3):
+        alpha = string.ascii_uppercase 
         self.offset = offset
-        self.FORWARD = string.ascii_uppercase + string.ascii_uppercase[:self.offset+1]
-        self.BACKWARD = string.ascii_uppercase[:self.offset+1] + string.ascii_uppercase
+        self.FORWARD = alpha + alpha[:self.offset+1]
+        self.BACKWARD = alpha[:self.offset+1] + alpha
 
     def encrypt(self, text):
         output = []
