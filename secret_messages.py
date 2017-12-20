@@ -109,7 +109,7 @@ def get_action():
 
     action = input("To encrypt type \"encrypt\". To decrypt type \"decrypt\"." 
                     + " > ").lower()
-    #action = action.lower()
+    
     if action == "encrypt":
         return action
     elif action == "decrypt":
